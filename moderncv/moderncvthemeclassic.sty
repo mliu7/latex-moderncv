@@ -1,0 +1,173 @@
+%% start of file `moderncvthemeclassic.sty'.
+%% Copyright 2006-2010 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+
+%-------------------------------------------------------------------------------
+%                identification
+%-------------------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{moderncvthemeclassic}[2010/05/24 v0.8 modern curriculum vitae style: classic]
+
+
+%-------------------------------------------------------------------------------
+%                required packages
+%-------------------------------------------------------------------------------
+
+
+%-------------------------------------------------------------------------------
+%                package options
+%-------------------------------------------------------------------------------
+% color options
+% blue (default option)
+\DeclareOption{blue}{}
+% orange
+\newif\if@colororange\@colororangefalse
+\DeclareOption{orange}{\@colororangetrue}
+% green
+\newif\if@colorgreen\@colorgreenfalse
+\DeclareOption{green}{\@colorgreentrue}
+% red
+\newif\if@colorred\@colorredfalse
+\DeclareOption{red}{\@colorredtrue}
+% grey
+\newif\if@colorgrey\@colorgreyfalse
+\DeclareOption{grey}{\@colorgreytrue}
+
+% roman option
+\newif\if@roman\@romanfalse
+\DeclareOption{roman}{\@romantrue}
+
+% unused options
+\DeclareOption*{
+  \PackageWarning{moderncvthemeclassic}{Unknown option ‘\CurrentOption’}}
+
+% execute default options
+\ExecuteOptions{color}
+
+% process given options
+\ProcessOptions\relax
+
+
+%-------------------------------------------------------------------------------
+%                style definition
+%-------------------------------------------------------------------------------
+% symbols used
+
+% colors
+\definecolor{firstnamecolor}{rgb}{0,0,0}
+\definecolor{familynamecolor}{rgb}{0,0,0}
+\definecolor{titlecolor}{rgb}{0.35,0.35,0.35}
+\definecolor{quotecolor}{rgb}{0.35,0.35,0.35}
+% default blue color
+  \definecolor{addresscolor}{rgb}{0.25,0.5,0.75}
+  \definecolor{sectionrectanglecolor}{rgb}{0.25,0.5,0.75}
+  \definecolor{sectiontitlecolor}{rgb}{0.2,0.4,0.65}
+  \definecolor{subsectioncolor}{rgb}{0.2,0.4,0.65}
+\if@colororange
+  \definecolor{addresscolor}{rgb}{0.95,0.55,0.15}
+  \definecolor{sectionrectanglecolor}{rgb}{1,0.65,0.20}
+  \definecolor{sectiontitlecolor}{rgb}{0.95,0.55,0.15}
+  \definecolor{subsectioncolor}{rgb}{0.95,0.55,0.15}\fi
+\if@colorgreen
+  \definecolor{addresscolor}{rgb}{0.30,0.65,0.15}
+  \definecolor{sectionrectanglecolor}{rgb}{0.55,0.85,0.35}
+  \definecolor{sectiontitlecolor}{rgb}{0.30,0.65,0.15}
+  \definecolor{subsectioncolor}{rgb}{0.30,0.65,0.15}\fi
+\if@colorred
+  \definecolor{addresscolor}{rgb}{0.95,0.20,0.20}
+  \definecolor{sectionrectanglecolor}{rgb}{1.00,0.30,0.30}
+  \definecolor{sectiontitlecolor}{rgb}{0.95,0.20,0.20}
+  \definecolor{subsectioncolor}{rgb}{0.95,0.20,0.20}\fi
+\if@colorgrey
+  \definecolor{addresscolor}{rgb}{0.35,0.35,0.35}
+  \definecolor{sectionrectanglecolor}{rgb}{0.75,0.75,0.75}
+  \definecolor{sectiontitlecolor}{rgb}{0.35,0.35,0.35}
+  \definecolor{subsectioncolor}{rgb}{0.35,0.35,0.35}\fi
+
+% fonts
+\if@roman
+  \AtBeginDocument{\rmfamily}
+\else
+  \AtBeginDocument{\sffamily}\fi
+\renewcommand*{\ttdefault}{pcr}
+\renewcommand*{\firstnamefont}{\fontsize{34}{36}\sffamily\mdseries\upshape}
+\renewcommand*{\titlefont}{\LARGE\sffamily\mdseries\slshape}
+\renewcommand*{\addressfont}{\normalsize\rmfamily\mdseries\slshape}
+\renewcommand*{\familynamefont}{\firstnamefont}
+\renewcommand*{\quotefont}{\large\slshape}
+\renewcommand*{\sectionfont}{\Large\sffamily\mdseries\upshape}
+\renewcommand*{\subsectionfont}{\large\sffamily\mdseries\upshape}
+
+% styles
+
+% maketitle
+%   setmaketitlenamemaxwidth to the full name length, capped by \maketitlenamemaxwidth
+\newlength{\maketitlenamemaxwidth}
+\setlength{\maketitlenamemaxwidth}{.525\textwidth}
+\newlength{\maketitlenamefullwidth}
+\settowidth{\maketitlenamefullwidth}{\firstnamestyle{\@firstname~}\familynamestyle{\@familyname}}
+\newlength{\maketitlenamewidth}
+\ifnum\maketitlenamemaxwidth<\maketitlenamefullwidth\setlength{\maketitlenamewidth}{\maketitlenamemaxwidth}\else\setlength{\maketitlenamewidth}{\maketitlenamefullwidth}\fi
+%   other lengths
+\newlength{\maketitlepicturewidth}
+\setlength{\maketitlepicturewidth}{\@photowidth}
+\newlength{\maketitledetailswidth}
+%   recompute theme-specific lengths, called by class to recompute all lengths
+\renewcommand*{\recomputethemelengths}{%
+  \setlength{\maketitledetailswidth}{\textwidth}%
+  \addtolength{\maketitledetailswidth}{-\maketitlenamewidth}%
+  \ifthenelse{\lengthtest{\maketitlepicturewidth=0pt}}%
+  	{}%
+  	{\addtolength{\maketitledetailswidth}{-\separatorcolumnwidth}%
+  	\addtolength{\maketitledetailswidth}{-\maketitlepicturewidth}}}
+\recomputethemelengths
+\newif\if@firstdetailselement\@firstdetailselementtrue
+\newcommand*{\maketitledetailsnewline}{
+  \if@firstdetailselement%
+    \@firstdetailselementfalse%
+  \else%
+    \\[.2em]\fi}
+\renewcommand*{\maketitle}{%
+  % name and title
+  \begin{minipage}[b]{\maketitlenamewidth}%
+    \firstnamestyle{\@firstname~}\familynamestyle{\@familyname}%
+    \ifthenelse{\equal{\@title}{}}{}{\\[1.25em]\titlestyle{\@title}}%
+  \end{minipage}%
+  % optional data
+  \begin{minipage}[b]{\maketitledetailswidth}%
+    \raggedleft\addressfont\color{addresscolor}%
+    \ifthenelse{\isundefined{\@addressstreet}}{}{%
+      \maketitledetailsnewline%
+      \addresssymbol~\@addressstreet%
+      \ifthenelse{\isundefined{\@addresscity}}{}{\\\@addresscity}}%
+    \ifthenelse{\isundefined{\@mobile}}{}{\maketitledetailsnewline\mobilesymbol~\@mobile}%
+    \ifthenelse{\isundefined{\@phone}}{}{\maketitledetailsnewline\phonesymbol~\@phone}%
+    \ifthenelse{\isundefined{\@fax}}{}{\maketitledetailsnewline\faxsymbol~\@fax}%
+    \ifthenelse{\isundefined{\@email}}{}{\maketitledetailsnewline\emailsymbol~\emaillink{\@email}}%
+    \ifthenelse{\isundefined{\@homepage}}{}{\maketitledetailsnewline\homepagesymbol~\httplink{\@homepage}}%
+    \ifthenelse{\isundefined{\@extrainfo}}{}{\maketitledetailsnewline\@extrainfo}%
+  \end{minipage}%
+  % optional photo
+  \ifthenelse{\isundefined{\@photo}}%
+    {}%
+    {%
+      \hspace*{\separatorcolumnwidth}%
+      \begin{minipage}[b]{\maketitlepicturewidth}%
+        \raggedleft{}\addressfont\color{addresscolor}%  required to correctly align content
+        \framebox{\includegraphics[width=\maketitlepicturewidth]{\@photo}}%
+      \end{minipage}}\\[3em]%
+  % optional quote
+  \ifthenelse{\isundefined{\@quote}}%
+    {}%
+    {{\centering{}\begin{minipage}{\quotewidth}\centering\quotestyle{\@quote}\end{minipage}\\[2.5em]}}%
+  }
+
+
+\endinput
+
+
+%% end of file `moderncvthemeclassic.sty'.
