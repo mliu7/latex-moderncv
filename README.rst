@@ -11,6 +11,11 @@ If you are looking for latex resume templates, I would recommend looking at this
 
 The moderncv theme for my resume is contributed by Xavier Danaux and can be downloaded here: http://tug.ctan.org/tex-archive/macros/latex/contrib/moderncv/
 
+Prerequisites
+=============
+
+You will need to have latex installed on your system. If you are using OSX, the easiest way to get up and running is to download MacTex: http://tug.org/mactex/
+
 Installation
 ============
 
