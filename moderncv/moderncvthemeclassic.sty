@@ -148,7 +148,7 @@
     \ifthenelse{\isundefined{\@phone}}{}{\maketitledetailsnewline\phonesymbol~\@phone}%
     \ifthenelse{\isundefined{\@fax}}{}{\maketitledetailsnewline\faxsymbol~\@fax}%
     \ifthenelse{\isundefined{\@email}}{}{\maketitledetailsnewline\emailsymbol~\emaillink{\@email}}%
-    \ifthenelse{\isundefined{\@homepage}}{}{\maketitledetailsnewline\homepagesymbol~\httplink{\@homepage}}%
+    \ifthenelse{\isundefined{\@homepage}}{}{\ifthenelse{\isundefined{\@homepageurl}}{\maketitledetailsnewline\homepagesymbol~\httplink{\@homepage}}{\maketitledetailsnewline\homepagesymbol~\httplink{\@homepageurl}}}%
     \ifthenelse{\isundefined{\@extrainfo}}{}{\maketitledetailsnewline\@extrainfo}%
   \end{minipage}%
   % optional photo
