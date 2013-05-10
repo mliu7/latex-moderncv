@@ -141,7 +141,7 @@
       \ifthenelse{\isundefined{\@phone}}{}{\footersymbol\phonesymbol~\@phone\@firstfooterelementfalse}%
       \ifthenelse{\isundefined{\@fax}}{}{\footersymbol\faxsymbol~\@fax\@firstfooterelementfalse}%
       \ifthenelse{\isundefined{\@email}}{}{\footersymbol\emailsymbol~\emaillink{\@email}\@firstfooterelementfalse}%
-      \ifthenelse{\isundefined{\@homepage}}{}{\footersymbol\homepagesymbol~\httplink{\@homepage}\@firstfooterelementfalse}%
+      \ifthenelse{\isundefined{\@homepage}}{}{\ifthenelse{\isundefined{\@homepageurl}}{\footersymbol\homepagesymbol~\httplink{\@homepage}\@firstfooterelementfalse}{\footersymbol\homepagesymbol~\httplink{\@homepageurl}\@firstfooterelementfalse}}%
       \ifthenelse{\isundefined{\@extrainfo}}{}{\footersymbol\@extrainfo\@firstfooterelementfalse}}}%
   }%
   \pagestyle{plain}}

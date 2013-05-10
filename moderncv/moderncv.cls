@@ -265,6 +265,7 @@
 \renewcommand*{\fax}[1]{\def\@fax{#1}}
 \newcommand*{\email}[1]{\def\@email{#1}}
 \newcommand*{\homepage}[1]{\def\@homepage{#1}}
+\newcommand*{\homepageurl}[1]{\def\@homepageurl{#1}}
 \newcommand*{\extrainfo}[1]{\def\@extrainfo{#1}}
 \def\@photowidth{0pt}
 \newcommand*{\photo}[2][64pt]{\def\@photowidth{#1}\def\@photo{#2}}
